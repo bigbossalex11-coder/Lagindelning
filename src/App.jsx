@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import './App.css'
 import PlayerRow from './components/PlayerRow'
 
 function App() {
@@ -12,7 +13,7 @@ const [players, setPlayers]= useState ([
   return (
     <div>
       <h1>Lagindelning</h1>
-      <ul>
+      <ul className="player-list">
         {players.map(player =><PlayerRow key={player.id} player={player} />)}
       </ul>
     </div>
