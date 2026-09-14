@@ -8,7 +8,6 @@ const [players, setPlayers]= useState ([
   {id: 2, name: "Eva", rank: "gul"},
   {id: 3, name: "Oskar", rank: "röd"}
 ]);
-  console.log(players)
 
   return (
     <div>
