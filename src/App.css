@@ -7,7 +7,18 @@
 }
 
 .player-list li{
-  border: 1px solid #555;
+  border: 1px solid #f8f7f7;
   border-radius: 8px;
   padding: 12px;
+  margin: auto;
+}
+.player-list .grön { background-color: #4caf50; color: #000;}
+.player-list .gul  { background-color: #ffc107; color: #000;}
+.player-list .röd  { background-color: #f44336; color: #000;}
+
+
+.buttons { margin-top: 8px;}.buttons {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;  
 }

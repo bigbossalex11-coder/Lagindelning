@@ -1,10 +1,14 @@
 function PlayerRow(props) {
     return (
-        <li>
-        {props.player.name}, {props.player.rank}
-         <button onClick={() => props.onChangeRank(props.player.id, "grön")}>Grön</button>
-         <button onClick={() => props.onChangeRank(props.player.id, "Gul")}>Gul</button>
-         <button onClick={() => props.onChangeRank(props.player.id, "Röd")}>Röd</button>
+        <li className = {props.player.rank}>
+            <div>
+        {props.player.name}
+        </div>
+        <div className="buttons">
+         <button onClick={() => props.onChangeRank(props.player.id, "grön")}>grön</button>
+         <button onClick={() => props.onChangeRank(props.player.id, "gul")}>gul</button>
+         <button onClick={() => props.onChangeRank(props.player.id, "röd")}>röd</button>
+        </div>
         </li>
 
     )
