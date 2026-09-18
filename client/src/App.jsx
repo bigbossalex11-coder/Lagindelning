@@ -11,10 +11,11 @@ useEffect(() => {
 }, []);
 
   function changeRank(id, newRank) {
+    fetch(`http://localhost:5293/players/${id}`, { method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ id: id, name: "eva", rank: newRank }) });
     const nyLista = players.map(player => {
     if (player.id === id) {
     return { ...player, rank: newRank };
-  }
+}
     return player;
 });
     setPlayers(nyLista);
