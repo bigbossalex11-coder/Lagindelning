@@ -1,13 +1,14 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import './App.css'
 import PlayerList from './components/PlayerList'
 
 function App() {
-const [players, setPlayers]= useState ([
-  {id: 1, name: "Adam", rank: "grön"},
-  {id: 2, name: "Eva", rank: "gul"},
-  {id: 3, name: "Oskar", rank: "röd"},
-]);
+const [players, setPlayers]= useState ([]);
+useEffect(() => {
+  fetch("http://localhost:5293/players")
+  .then(r => r.json())
+  .then(data => setPlayers(data));
+}, []);
 
   function changeRank(id, newRank) {
     const nyLista = players.map(player => {
@@ -25,6 +26,6 @@ const [players, setPlayers]= useState ([
       <PlayerList players={players} onChangeRank={changeRank} />
     </div>
   );
-}
 
+}
 export default App;
