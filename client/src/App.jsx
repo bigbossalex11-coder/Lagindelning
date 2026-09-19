@@ -5,14 +5,17 @@ import AddPlayerForm from './components/AddPlayerForm';
 
 function App() {
 const [players, setPlayers]= useState ([]);
+const [error, setError] = useState("")
 useEffect(() => {
   fetch("http://localhost:5293/players")
   .then(r => r.json())
-  .then(data => setPlayers(data));
+  .then(data => setPlayers(data))
+  .catch(err => setError("kunde inte nå servern"));
 }, []);
 
   function changeRank(id, newRank) {
-    fetch(`http://localhost:5293/players/${id}`, { method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ id: id, name: "eva", rank: newRank }) });
+    fetch(`http://localhost:5293/players/${id}`, { method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ id: id, name: "eva", rank: newRank }) })
+    .catch(err => setError("kunde inte ändra spelaren"));
     const nyLista = players.map(player => {
     if (player.id === id) {
     return { ...player, rank: newRank };
@@ -28,13 +31,15 @@ function addPlayer(name) {
     body: JSON.stringify({ id: 0, name: name, rank: "grön" })
   })
     .then(r => r.json())
-    .then(created => setPlayers([...players, created]));
+    .then(created => setPlayers([...players, created]))
+    .catch(err => setError("kunde inte lägga till spelaren"));
 }
     
 
   return (
     <div>
       <h1>Lagindelning</h1>
+      {error && <p>{error}</p>}
       <AddPlayerForm onAdd={addPlayer} />
       <PlayerList players={players} onChangeRank={changeRank} />
     </div>
