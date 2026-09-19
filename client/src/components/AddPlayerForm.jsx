@@ -6,6 +6,7 @@ function AddPlayerForm(props){
     function handleSubmit(event) {
         event.preventDefault();
             props.onAdd(name);
+            setName("");
     }
     
     return(
