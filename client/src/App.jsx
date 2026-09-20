@@ -34,15 +34,26 @@ function addPlayer(name) {
     .then(created => setPlayers([...players, created]))
     .catch(err => setError("kunde inte lägga till spelaren"));
 }
+function uploadFile(id,file){
+  const fd = new FormData();
+  fd.append("file", file);
+    fetch(`http://localhost:5293/players/${id}/file`,{
+     method: "POST", 
+     body: fd 
+    })
+    .then(r => r.json())
+    .then(updated => setPlayers(players.map(player => player.id === id ? updated : player)))
+    .catch (err => setError ("kunde inte ladda upp filen"));
+    }
     
-
-  return (
+    return (
     <div>
       <h1>Lagindelning</h1>
       {error && <p>{error}</p>}
       <AddPlayerForm onAdd={addPlayer} />
-      <PlayerList players={players} onChangeRank={changeRank} />
+      <PlayerList players={players} onChangeRank={changeRank} onUpload={uploadFile} />
     </div>
   );
 }
 export default App;
+
