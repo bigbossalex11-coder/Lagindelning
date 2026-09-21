@@ -2,23 +2,32 @@
   list-style: none;
   padding: 0;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 12px;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 10px;
 }
 
 .player-list li{
   border: 1px solid #f8f7f7;
   border-radius: 8px;
   padding: 12px;
-  margin: auto;
+
 }
 .player-list .grön { background-color: #4caf50; color: #000;}
 .player-list .gul  { background-color: #ffc107; color: #000;}
 .player-list .röd  { background-color: #f44336; color: #000;}
 
 
-.buttons { margin-top: 8px;}.buttons {
+.buttons { 
+  margin-top: 8px;
   display: flex;
-  gap: 8px;
-  margin-top: 8px;  
+  gap: 8px; 
+}
+.buttons button {
+  flex: 1;
+  padding: 4px;
+  font-size: 0.75rem;
+}
+
+.player-list input[type="file"]{
+width: 100%;
 }
