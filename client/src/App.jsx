@@ -14,7 +14,8 @@ useEffect(() => {
 }, []);
 
   function changeRank(id, newRank) {
-    fetch(`http://localhost:5293/players/${id}`, { method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ id: id, name: "eva", rank: newRank }) })
+    const current = players.find(p => p.id === id)
+    fetch(`http://localhost:5293/players/${id}`, { method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ id: id, name: current.name, rank: newRank }) })
     .catch(err => setError("kunde inte ändra spelaren"));
     const nyLista = players.map(player => {
     if (player.id === id) {
