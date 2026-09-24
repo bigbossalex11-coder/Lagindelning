@@ -60,13 +60,21 @@ function uploadFile(id,file){
     .then(updated => setPlayers(players.map(player => player.id === id ? updated : player)))
     .catch (err => setError ("kunde inte ladda upp filen"));
     }
-    
+
+    function deletePlayer(id) {
+    fetch(`${API_URL}/players/${id}`, { method: "DELETE" })
+    .then(r => {
+      if (!r.ok) throw new Error();
+      setPlayers(players.filter(p => p.id !== id));
+    })
+    .catch(err => setError("kunde inte ta bort spelaren"));
+}
     return (
     <div>
       <h1>Lagindelning</h1>
       {error && <p>{error}</p>}
       <AddPlayerForm onAdd={addPlayer} />
-      <PlayerList players={players} onChangeRank={changeRank} onUpload={uploadFile} />
+      <PlayerList players={players} onChangeRank={changeRank} onUpload={uploadFile} onDelete={deletePlayer} />
     </div>
   );
 }

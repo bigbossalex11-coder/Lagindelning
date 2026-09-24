@@ -11,6 +11,7 @@ function PlayerRow(props) {
         </div>
         {props.player.fileName && <p>Fil: {props.player.fileName}</p>}
         <input type="file" onChange={e => props.onUpload(props.player.id, e.target.files[0])} />
+        <button onClick={() => props.onDelete(props.player.id)}>Ta bort</button>
         </li>
 
     )
