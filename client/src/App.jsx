@@ -10,7 +10,11 @@ const [players, setPlayers]= useState ([]);
 const [error, setError] = useState("")
 useEffect(() => {
  fetch(`${API_URL}/players`)
-  .then(r => r.json())
+  
+ .then(r => {
+    if (!r.ok) throw new Error();
+    return r.json();
+  })
   .then(data => setPlayers(data))
   .catch(err => setError("kunde inte nå servern"));
 }, []);
@@ -34,7 +38,10 @@ useEffect(() => {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ id: 0, name: name, rank: "grön" })
   })
-    .then(r => r.json())
+    .then(r => {
+    if (!r.ok) throw new Error();
+    return r.json();
+})
     .then(created => setPlayers([...players, created]))
     .catch(err => setError("kunde inte lägga till spelaren"));
 }
@@ -46,7 +53,10 @@ function uploadFile(id,file){
      method: "POST", 
      body: fd 
     })
-    .then(r => r.json())
+    .then(r => {
+    if (!r.ok) throw new Error();
+    return r.json();
+    })  
     .then(updated => setPlayers(players.map(player => player.id === id ? updated : player)))
     .catch (err => setError ("kunde inte ladda upp filen"));
     }
