@@ -3,11 +3,13 @@ import './App.css'
 import PlayerList from './components/PlayerList'
 import AddPlayerForm from './components/AddPlayerForm';
 
+const API_URL = "http://localhost:5293";
+
 function App() {
 const [players, setPlayers]= useState ([]);
 const [error, setError] = useState("")
 useEffect(() => {
-  fetch("http://localhost:5293/players")
+ fetch(`${API_URL}/players`)
   .then(r => r.json())
   .then(data => setPlayers(data))
   .catch(err => setError("kunde inte nå servern"));
@@ -15,7 +17,7 @@ useEffect(() => {
 
   function changeRank(id, newRank) {
     const current = players.find(p => p.id === id)
-    fetch(`http://localhost:5293/players/${id}`, { method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ id: id, name: current.name, rank: newRank }) })
+    fetch(`${API_URL}/players/${id}`, { method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ id: id, name: current.name, rank: newRank }) })
     .catch(err => setError("kunde inte ändra spelaren"));
     const nyLista = players.map(player => {
     if (player.id === id) {
@@ -25,8 +27,9 @@ useEffect(() => {
 });
     setPlayers(nyLista);
   }
-function addPlayer(name) {
-  fetch("http://localhost:5293/players", {
+
+  function addPlayer(name) {
+  fetch(`${API_URL}/players`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ id: 0, name: name, rank: "grön" })
@@ -35,10 +38,11 @@ function addPlayer(name) {
     .then(created => setPlayers([...players, created]))
     .catch(err => setError("kunde inte lägga till spelaren"));
 }
+
 function uploadFile(id,file){
   const fd = new FormData();
   fd.append("file", file);
-    fetch(`http://localhost:5293/players/${id}/file`,{
+    fetch(`${API_URL}/players/${id}/file`,{
      method: "POST", 
      body: fd 
     })
