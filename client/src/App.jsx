@@ -33,7 +33,7 @@ useEffect(() => {
 });
     setPlayers(nyLista);
   }
-  
+
   function addPlayer(name) {
   fetch(`${API_URL}/players`, {
     method: "POST",
@@ -88,6 +88,7 @@ function makeTeams(teamCount, mode) {
       <AddPlayerForm onAdd={addPlayer} />
       <PlayerList players={players} onChangeRank={changeRank} onUpload={uploadFile} onDelete={deletePlayer} />
       <button onClick={() => makeTeams(3, "random")}>Slumpa</button>
+      <button onClick={() => makeTeams(3, "level")}>Nivåindela</button>
       <TeamList teams={teams} />
     </div>
   );
