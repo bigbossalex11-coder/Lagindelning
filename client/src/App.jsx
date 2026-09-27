@@ -92,6 +92,7 @@ function makeTeams(teamCount, mode) {
         <input type="number" min="1" value={teamCount} onChange={e => setTeamCount(Number(e.target.value))} />
       <button onClick={() => makeTeams(teamCount, "random")}>Slumpa</button>
       <button onClick={() => makeTeams(teamCount, "level")}>Nivåindela</button>
+      <button onClick={() => setTeams([])}>Rensa lag</button>
       </div>
       <TeamList teams={teams} />
     </div>
