@@ -10,6 +10,7 @@ function App() {
 const [players, setPlayers]= useState ([]);
 const [teams, setTeams] = useState([]);
 const [error, setError] = useState("")
+const [teamCount, setTeamCount] = useState(3);
 useEffect(() => {
  fetch(`${API_URL}/players`)
   
@@ -88,8 +89,9 @@ function makeTeams(teamCount, mode) {
       <AddPlayerForm onAdd={addPlayer} />
       <PlayerList players={players} onChangeRank={changeRank} onUpload={uploadFile} onDelete={deletePlayer} />
       <div className="controls">
-      <button onClick={() => makeTeams(3, "random")}>Slumpa</button>
-      <button onClick={() => makeTeams(3, "level")}>Nivåindela</button>
+        <input type="number" min="1" value={teamCount} onChange={e => setTeamCount(Number(e.target.value))} />
+      <button onClick={() => makeTeams(teamCount, "random")}>Slumpa</button>
+      <button onClick={() => makeTeams(teamCount, "level")}>Nivåindela</button>
       </div>
       <TeamList teams={teams} />
     </div>
