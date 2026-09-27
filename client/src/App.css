@@ -22,6 +22,7 @@
   display: flex;
   gap: 8px; 
 }
+
 .buttons button {
   flex: 1;
   padding: 4px;
@@ -30,4 +31,25 @@
 
 .player-list input[type="file"]{
 width: 100%;
+}
+
+.team-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  max-width: 1000px;
+  margin: 16px auto;
+  padding: 0 16px;
+}
+
+.team {
+  background: var(--code-bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 12px;
+}
+
+.team .player-list {
+  grid-template-columns: 1fr;
+  gap: 6px;
 }
