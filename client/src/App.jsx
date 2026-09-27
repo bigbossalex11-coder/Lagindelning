@@ -87,8 +87,10 @@ function makeTeams(teamCount, mode) {
       {error && <p>{error}</p>}
       <AddPlayerForm onAdd={addPlayer} />
       <PlayerList players={players} onChangeRank={changeRank} onUpload={uploadFile} onDelete={deletePlayer} />
+      <div className="controls">
       <button onClick={() => makeTeams(3, "random")}>Slumpa</button>
       <button onClick={() => makeTeams(3, "level")}>Nivåindela</button>
+      </div>
       <TeamList teams={teams} />
     </div>
   );
