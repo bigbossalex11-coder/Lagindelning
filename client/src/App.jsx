@@ -2,11 +2,13 @@ import { useEffect, useState } from 'react'
 import './App.css'
 import PlayerList from './components/PlayerList'
 import AddPlayerForm from './components/AddPlayerForm';
+import TeamList from './components/TeamList';
 
 const API_URL = "http://localhost:5293";
 
 function App() {
 const [players, setPlayers]= useState ([]);
+const [teams, setTeams] = useState([]);
 const [error, setError] = useState("")
 useEffect(() => {
  fetch(`${API_URL}/players`)
@@ -31,7 +33,7 @@ useEffect(() => {
 });
     setPlayers(nyLista);
   }
-
+  
   function addPlayer(name) {
   fetch(`${API_URL}/players`, {
     method: "POST",
@@ -69,12 +71,24 @@ function uploadFile(id,file){
     })
     .catch(err => setError("kunde inte ta bort spelaren"));
 }
+function makeTeams(teamCount, mode) {
+  fetch(`${API_URL}/teams?teamCount=${teamCount}&mode=${mode}`)
+    .then(r => {
+      if (!r.ok) throw new Error();
+      return r.json();
+    })
+    .then(data => setTeams(data))
+    .catch(err => setError("kunde inte dela in lagen"));
+}
+
     return (
     <div>
       <h1>Lagindelning</h1>
       {error && <p>{error}</p>}
       <AddPlayerForm onAdd={addPlayer} />
       <PlayerList players={players} onChangeRank={changeRank} onUpload={uploadFile} onDelete={deletePlayer} />
+      <button onClick={() => makeTeams(3, "random")}>Slumpa</button>
+      <TeamList teams={teams} />
     </div>
   );
 }
