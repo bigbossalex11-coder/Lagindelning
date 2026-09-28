@@ -1,102 +1,124 @@
-import { useEffect, useState } from 'react'
-import './App.css'
-import PlayerList from './components/PlayerList'
-import AddPlayerForm from './components/AddPlayerForm';
-import TeamList from './components/TeamList';
+import { useEffect, useState } from "react";
+import "./App.css";
+import PlayerList from "./components/PlayerList";
+import AddPlayerForm from "./components/AddPlayerForm";
+import TeamList from "./components/TeamList";
 
 const API_URL = "http://localhost:5293";
 
 function App() {
-const [players, setPlayers]= useState ([]);
-const [teams, setTeams] = useState([]);
-const [error, setError] = useState("")
-const [teamCount, setTeamCount] = useState(3);
-useEffect(() => {
- fetch(`${API_URL}/players`)
-  
- .then(r => {
-    if (!r.ok) throw new Error();
-    return r.json();
-  })
-  .then(data => setPlayers(data))
-  .catch(err => setError("kunde inte nå servern"));
-}, []);
+  const [players, setPlayers] = useState([]);
+  const [teams, setTeams] = useState([]);
+  const [error, setError] = useState("");
+  const [teamCount, setTeamCount] = useState(3);
+  useEffect(() => {
+    fetch(`${API_URL}/players`)
+      .then((r) => {
+        if (!r.ok) throw new Error();
+        return r.json();
+      })
+      .then((data) => setPlayers(data))
+      .catch((err) => setError("kunde inte nå servern"));
+  }, []);
 
   function changeRank(id, newRank) {
-    const current = players.find(p => p.id === id)
-    fetch(`${API_URL}/players/${id}`, { method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ id: id, name: current.name, rank: newRank }) })
-    .catch(err => setError("kunde inte ändra spelaren"));
-    const nyLista = players.map(player => {
-    if (player.id === id) {
-    return { ...player, rank: newRank };
-}
-    return player;
-});
+    const current = players.find((p) => p.id === id);
+    fetch(`${API_URL}/players/${id}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id: id, name: current.name, rank: newRank }),
+    }).catch((err) => setError("kunde inte ändra spelaren"));
+    const nyLista = players.map((player) => {
+      if (player.id === id) {
+        return { ...player, rank: newRank };
+      }
+      return player;
+    });
     setPlayers(nyLista);
   }
 
   function addPlayer(name) {
-  fetch(`${API_URL}/players`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ id: 0, name: name, rank: "grön" })
-  })
-    .then(r => {
-    if (!r.ok) throw new Error();
-    return r.json();
-})
-    .then(created => setPlayers([...players, created]))
-    .catch(err => setError("kunde inte lägga till spelaren"));
-}
-
-function uploadFile(id,file){
-  const fd = new FormData();
-  fd.append("file", file);
-    fetch(`${API_URL}/players/${id}/file`,{
-     method: "POST", 
-     body: fd 
+    fetch(`${API_URL}/players`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id: 0, name: name, rank: "grön" }),
     })
-    .then(r => {
-    if (!r.ok) throw new Error();
-    return r.json();
-    })  
-    .then(updated => setPlayers(players.map(player => player.id === id ? updated : player)))
-    .catch (err => setError ("kunde inte ladda upp filen"));
-    }
+      .then((r) => {
+        if (!r.ok) throw new Error();
+        return r.json();
+      })
+      .then((created) => setPlayers([...players, created]))
+      .catch((err) => setError("kunde inte lägga till spelaren"));
+  }
 
-    function deletePlayer(id) {
+  function uploadFile(id, file) {
+    const fd = new FormData();
+    fd.append("file", file);
+    fetch(`${API_URL}/players/${id}/file`, {
+      method: "POST",
+      body: fd,
+    })
+      .then((r) => {
+        if (!r.ok) throw new Error();
+        return r.json();
+      })
+      .then((updated) =>
+        setPlayers(
+          players.map((player) => (player.id === id ? updated : player)),
+        ),
+      )
+      .catch((err) => setError("kunde inte ladda upp filen"));
+  }
+
+  function deletePlayer(id) {
     fetch(`${API_URL}/players/${id}`, { method: "DELETE" })
-    .then(r => {
-      if (!r.ok) throw new Error();
-      setPlayers(players.filter(p => p.id !== id));
-    })
-    .catch(err => setError("kunde inte ta bort spelaren"));
-}
-function makeTeams(teamCount, mode) {
-  fetch(`${API_URL}/teams?teamCount=${teamCount}&mode=${mode}`)
-    .then(r => {
-      if (!r.ok) throw new Error();
-      return r.json();
-    })
-    .then(data => setTeams(data))
-    .catch(err => setError("kunde inte dela in lagen"));
-}
+      .then((r) => {
+        if (!r.ok) throw new Error();
+        setPlayers(players.filter((p) => p.id !== id));
+      })
+      .catch((err) => setError("kunde inte ta bort spelaren"));
+  }
+  function makeTeams(teamCount, mode) {
+    fetch(`${API_URL}/teams?teamCount=${teamCount}&mode=${mode}`)
+      .then((r) => {
+        if (!r.ok) throw new Error();
+        return r.json();
+      })
+      .then((data) => setTeams(data))
+      .catch((err) => setError("kunde inte dela in lagen"));
+  }
 
-    return (
+  return (
     <div>
       <h1>Lagindelning</h1>
       {error && <p>{error}</p>}
       <AddPlayerForm onAdd={addPlayer} />
-      <PlayerList players={players} onChangeRank={changeRank} onUpload={uploadFile} onDelete={deletePlayer} />
+      <PlayerList
+        players={players}
+        onChangeRank={changeRank}
+        onUpload={uploadFile}
+        onDelete={deletePlayer}
+      />
       <div className="controls">
-        <input type="number" min="1" value={teamCount} onChange={e => setTeamCount(Number(e.target.value))} />
-      <button onClick={() => makeTeams(teamCount, "random")}>Slumpa</button>
-      <button onClick={() => makeTeams(teamCount, "level")}>Nivåindela</button>
-      <button onClick={() => setTeams([])}>Rensa lag</button>
+        <span>Antal lag</span>
+        <button
+          className="step"
+          onClick={() => setTeamCount(Math.max(1, teamCount - 1))}
+        >
+          −
+        </button>
+        <span>{teamCount}</span>
+        <button className="step" onClick={() => setTeamCount(teamCount + 1)}>
+          +
+        </button>
+        <button onClick={() => makeTeams(teamCount, "random")}>Slumpa</button>
+        <button onClick={() => makeTeams(teamCount, "level")}>
+          Nivåindela
+        </button>
+        <button onClick={() => setTeams([])}>Rensa lag</button>
       </div>
       <TeamList teams={teams} />
     </div>
   );
 }
 export default App;
-
