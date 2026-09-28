@@ -29,10 +29,6 @@
   font-size: 0.75rem;
 }
 
-.player-list input[type="file"]{
-width: 100%;
-}
-
 .team-list {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -87,4 +83,19 @@ width: 100%;
 .buttons .dot.grön { background-color: #639922; }
 .buttons .dot.gul  { background-color: #EF9F27; }
 .buttons .dot.röd  { background-color: #E24B4A; }
-.buttons .dot.vald { outline: 2px solid currentColor; outline-offset: 1px; }
+
+.file {
+  display: block;
+  position: relative;
+  margin-top: 8px;
+  padding: 4px 8px;
+  border: 1px dashed currentColor;
+  border-radius: 8px;
+  font-size: 0.75rem;
+  cursor: pointer;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.file input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+.file:focus-within { outline: 2px solid currentColor; }

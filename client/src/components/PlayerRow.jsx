@@ -19,11 +19,15 @@ function PlayerRow(props) {
           onClick={() => props.onChangeRank(props.player.id, "röd")}
         ></button>
       </div>
-      {props.player.fileName && <p>Fil: {props.player.fileName}</p>}
-      <input
-        type="file"
-        onChange={(e) => props.onUpload(props.player.id, e.target.files[0])}
-      />
+      <label className="file">
+        <input
+          type="file"
+          onChange={(e) => props.onUpload(props.player.id, e.target.files[0])}
+        />
+        <span title={props.player.fileName}>
+          {props.player.fileName || "Välj fil"}
+        </span>
+      </label>
       <button onClick={() => props.onDelete(props.player.id)}>Ta bort</button>
     </li>
   );
