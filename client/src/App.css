@@ -12,9 +12,9 @@
   padding: 12px;
 
 }
-.player-list .grön { background-color: #4caf50; color: #000;}
-.player-list .gul  { background-color: #ffc107; color: #000;}
-.player-list .röd  { background-color: #f44336; color: #000;}
+.player-list .grön { background-color: #C0DD97; color: #173404; }
+.player-list .gul  { background-color: #FAC775; color: #412402; }
+.player-list .röd  { background-color: #F7C1C1; color: #501313;}
 
 
 .buttons { 
