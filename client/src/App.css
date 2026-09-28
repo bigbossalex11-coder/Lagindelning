@@ -98,4 +98,20 @@
   white-space: nowrap;
 }
 .file input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+
 .file:focus-within { outline: 2px solid currentColor; }
+.card-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  font-weight: 500;
+}
+.card-head span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.remove {
+  background: none;
+  border: none;
+  padding: 0 4px;
+  color: inherit;
+  cursor: pointer;
+}

@@ -1,7 +1,16 @@
 function PlayerRow(props) {
   return (
     <li className={props.player.rank}>
-      <div>{props.player.name}</div>
+      <div className="card-head">
+        <span>{props.player.name}</span>
+        <button
+          className="remove"
+          aria-label="Ta bort"
+          onClick={() => props.onDelete(props.player.id)}
+        >
+          ✕
+        </button>
+      </div>
       <div className="buttons">
         <button
           className="dot grön"
@@ -28,7 +37,6 @@ function PlayerRow(props) {
           {props.player.fileName || "Välj fil"}
         </span>
       </label>
-      <button onClick={() => props.onDelete(props.player.id)}>Ta bort</button>
     </li>
   );
 }
