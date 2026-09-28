@@ -74,3 +74,17 @@ width: 100%;
  color: #fff;
  cursor: pointer;
 }
+.buttons .dot {
+  flex: none;
+  width: 20px;
+  height: 20px;
+  padding: 0;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  color: inherit;
+  cursor: pointer;
+}
+.buttons .dot.grön { background-color: #639922; }
+.buttons .dot.gul  { background-color: #EF9F27; }
+.buttons .dot.röd  { background-color: #E24B4A; }
+.buttons .dot.vald { outline: 2px solid currentColor; outline-offset: 1px; }
