@@ -6,6 +6,8 @@ Ett verktyg för att hålla koll på spelare i ett lag och ge dem en nivå (grö
 
 Appen hämtar data från [Lagindelning-api](https://github.com/bigbossalex11-coder/Lagindelning-api). Starta det först enligt dess README, sedan webappen nedan.
 
+Det finns även en mobilapp som använder samma API https://github.com/bigbossalex11-coder/Lagindelning-app
+
 ## Köra lokalt
 
 ```
