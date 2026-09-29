@@ -1,7 +1,6 @@
 # Lagindelning
 
-Ett verktyg för att hålla koll på spelare i ett lag och ge dem en nivå (grön/gul/röd). Tanken är att senare kunna dela in lag utifrån nivå.
-
+Ett verktyg för att hålla koll på spelare i ett lag och ge dem en nivå (grön/gul/röd).
 ## Backend krävs
 
 Appen hämtar data från [Lagindelning-api](https://github.com/bigbossalex11-coder/Lagindelning-api). Starta det först enligt dess README, sedan webappen nedan.
@@ -18,7 +17,7 @@ npm run dev
 
 ```
 
-Öppna adressen som terminalen visar: http://localhost:5173 I webläsaren
+Öppna adressen som terminalen visar: http://localhost:5173 I webbläsaren
 
 ## Tekniska val
 
@@ -36,7 +35,7 @@ React jämför med föregående värde. Ändras den befintliga listan är det
 fortfarande samma lista, och inget ritas om. Därför skapas alltid en ny kopia.
 
 Ett gemensamt error-state
-Alla fyra anrop skriver till samma felruta. Användaren behöver ett ställe att
+Alla anrop skriver till samma felruta. Användaren behöver ett ställe att
 titta på, inte ett meddelande per anrop. Rutan visas bara när det finns ett fel.
 
 Rank uppdateras direkt i gränssnittet
